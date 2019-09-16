@@ -1,23 +1,20 @@
-use structopt::StructOpt;
+extern crate clap;
+use clap::{App, Arg};
+use convert::Convert;
 
-/// Search for a pattern in a file and display the lines that contain it.
-#[derive(StructOpt)]
-struct Cli {
-    /// The pattern to look for
-    pattern: String,
-    /// The path to the file to read
-    #[structopt(parse(from_os_str))]
-    path: std::path::PathBuf,
-}
+mod convert;
 
 fn main() {
-    let args = Cli::from_args();
-    let content = std::fs::read_to_string(&args.path)
-        .expect("could not read file");
+    let matches = App::new("cha")
+        .version("0.1")
+        .about("cha: try to find files")
+        .author("betta")
+        .arg(Arg::with_name("INPUT")
+            .help("Please input some string")
+            .index(1)
+            .required(true))
+        .get_matches();
 
-    for line in content.lines() {
-        if line.contains(&args.pattern) {
-            println!("{}", line);
-        }
-    }
+    let st: String = matches.value_of("INPUT").unwrap().to_string();
+    Convert::new(st).format_and_print();
 }
