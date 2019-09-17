@@ -1,16 +1,14 @@
 extern crate crypto;
 extern crate urlencoding;
 extern crate term;
+extern crate base64;
 
-use std::io;
-use crate::App;
 
 use crypto::md5::Md5;
 use crypto::sha2::Sha256;
 use crypto::digest::Digest;
 use urlencoding::encode;
 use urlencoding::decode;
-
 
 pub struct Convert {
     pub st: String,
@@ -43,6 +41,21 @@ impl Convert {
         sha256.input_str(&self.st);
         let sha256_st = sha256.result_str();
         println!("sha256 encode  {}", sha256_st);
+
+        // base64
+        let base64_st = base64::encode(&self.st);
+        println!("base64 encode  {}", base64_st);
+
+        // base64 decode
+        let dst = match base64::decode(&self.st) {
+            Ok(n) => n,
+            Err(_) => vec![b'e', b'r', b'r', b'o', b'r'],
+        };
+        let base64_dst = match String::from_utf8(dst) {
+            Ok(v) => v,
+            Err(e) => panic!("Invalid UTF-8 sequence: {}", e),
+        };
+        println!("base64 decode  {}", base64_dst);
 
         // url encode
         let url_st = encode(&self.st);

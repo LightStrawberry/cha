@@ -92,6 +92,7 @@ source = "registry+git://mirrors.ustc.edu.cn/crates.io-index"
 name = "cha"
 version = "0.1.0"
 dependencies = [
+ "base64 0.10.1 (registry+git://mirrors.ustc.edu.cn/crates.io-index)",
  "clap 2.33.0 (registry+git://mirrors.ustc.edu.cn/crates.io-index)",
  "rust-crypto 0.2.36 (registry+git://mirrors.ustc.edu.cn/crates.io-index)",
  "term 0.6.1 (registry+git://mirrors.ustc.edu.cn/crates.io-index)",
