@@ -8,3 +8,6 @@ edition = "2018"
 
 [dependencies]
 clap = "2.33.0"
+rust-crypto = "^0.2"
+urlencoding = "1.0.0"
+term = "*"
